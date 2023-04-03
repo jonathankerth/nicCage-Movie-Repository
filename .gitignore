@@ -5,3 +5,4 @@ _site/
 node_modules
 .cache
 .parcel-cache
+.DS_Store
