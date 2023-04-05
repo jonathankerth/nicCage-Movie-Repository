@@ -1,19 +1,12 @@
-export const MovieCard = ({movie, onBackClick }) => {
-    return (
-      <div>
-        <div>
-          <img src={movie.image} />
-        </div>
-        <div>
-          <span>Title: </span>
-          <span>{movie.title}</span>
-        </div>
-        <div>
-          <span>Director: </span>
-          <span>{movie.director}</span>
-        </div>
-        <button onClick={onBackClick}>Back</button>
-      </div>
-    );
-  };
+export const MovieCard = ({ book, onMovieClick }) => {
+  return (
+    <div
+      onClick={() => {
+        onMovieClick(movie);
+      }}
+    >
+      {movie.title}
+    </div>
+  );
+};
 
