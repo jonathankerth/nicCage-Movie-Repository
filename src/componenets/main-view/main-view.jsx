@@ -8,7 +8,7 @@ export const MainView = () => {
       id: 1,
       title: "Pulp Fiction",
       image:
-      "",
+      "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/pulpfiction.2436_480x.progressive.jpg?v=1620048742",
       director: "Quentin Tarantino"
     },
     {
