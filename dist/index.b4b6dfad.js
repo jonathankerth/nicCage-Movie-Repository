@@ -27297,25 +27297,25 @@ const MainView = ()=>{
         {
             id: 2,
             title: "National Treasure",
-            image: "",
+            image: "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/national_treasure_xlg_480x.progressive.jpg?v=1649430798",
             director: "Jon Turteltaub"
         },
         {
             id: 3,
             title: "National Treasure 2",
-            image: "",
+            image: "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/national_treasure_book_of_secrets_480x.progressive.jpg?v=1636580603",
             director: "Jon Turteltaub"
         },
         {
             id: 4,
             title: "Lord of War",
-            image: "",
+            image: "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/02953ca30b90e50cf232c089805f3b74_37e4d59d-23b6-4f28-be94-5192f5e03105_480x.progressive.jpg?v=1573593994",
             director: "Andrew Niccol"
         },
         {
             id: 5,
             title: "The Sorcerer's Apprentice",
-            image: "",
+            image: "https://cdn.shopify.com/s/files/1/0057/3728/3618/products/6226f5fe9d1fe309935684e3b4b35fe5_292436ca-ed4e-4d36-a98a-9329a6dc1b1b_500x749.jpg?v=1573588607",
             director: "Jon Turteltaub"
         }
     ]);
@@ -27352,7 +27352,7 @@ const MainView = ()=>{
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "r4dEtPw0A2pGr2CBH96SfQW5ul4=");
+_s(MainView, "9TM2ZePyDAnw7g8VIT/D7ozUOPY=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
