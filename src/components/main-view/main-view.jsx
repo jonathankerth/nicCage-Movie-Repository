@@ -10,20 +10,19 @@ export const MainView = () => {
     fetch("https://niccage.herokuapp.com/movies")
       .then((response) => response.json())
       .then((data) => {
-        if (data && data.docs) {
-          const moviesFromApi = data.docs.map((doc) => {
-            return {
-              id: doc.key,
-              title: doc.title,
-              image: `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`,
-              author: doc.author_name?.[0]
-            };
-          });
-
-          setMovies(moviesFromApi);
-        }
+        const moviesFromApi = (data?.docs || []).map((doc) => ({
+          id: doc?.key,
+          title: doc?.title,
+          image: doc?.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg` : null,
+          author: doc?.author_name?.[0] ?? 'Unknown'
+        }));
+        setMovies(moviesFromApi);
+      })
+      .catch((error) => {
+        console.error('Error fetching movies:', error);
       });
   }, []);
+  
 
 
   if (selectedMovie) {
