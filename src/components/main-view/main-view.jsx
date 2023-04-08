@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
-
-
+import { useEffect } from "react";
 
 export const MainView = () => {
-  const [books, setBooks] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   useEffect(() => {
     fetch("https://niccage.herokuapp.com/movies")
