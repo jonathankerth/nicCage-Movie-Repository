@@ -10,13 +10,7 @@ export const MainView = () => {
     fetch("https://niccage.herokuapp.com/movies")
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = (data?.docs || []).map((doc) => ({
-          id: doc?.key,
-          title: doc?.title,
-          image: doc?.cover_i ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg` : null,
-          author: doc?.author_name?.[0] ?? 'Unknown'
-        }));
-        setMovies(moviesFromApi);
+        setMovies(data);
       })
       .catch((error) => {
         console.error('Error fetching movies:', error);
@@ -37,7 +31,7 @@ export const MainView = () => {
     <div>
       {movies.map((movie) => (
         <MovieCard
-          key={movie.id}
+          key={movie._id}
           movie={movie}
           onMovieClick={(newSelectedMovie) => {
             setSelectedMovie(newSelectedMovie);
