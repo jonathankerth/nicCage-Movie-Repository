@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Form, FormGroup, FormControl, Button } from 'react-bootstrap'
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState('')
@@ -8,8 +9,8 @@ export const LoginView = ({ onLoggedIn }) => {
     event.preventDefault()
 
     const loginData = {
-      access: username,
-      secret: password,
+      username: username,
+      password: password,
     }
 
     try {
@@ -41,26 +42,26 @@ export const LoginView = ({ onLoggedIn }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
+    <Form onSubmit={handleSubmit}>
+      <FormGroup>
+        <Form.Label>Username:</Form.Label>
+        <FormControl
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Password:
-        <input
+      </FormGroup>
+      <FormGroup>
+        <Form.Label>Password:</Form.Label>
+        <FormControl
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+      </FormGroup>
+      <Button type="submit">Submit</Button>
+    </Form>
   )
 }
