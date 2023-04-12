@@ -1,51 +1,51 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 export const LoginView = ({ onLoggedIn }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault()
 
-    const data = {
+    const loginData = {
       access: username,
-      secret:               password
-    };
+      secret: password,
+    }
 
-    fetch('https://niccage.herokuapp.com/login', {
+    try {
+      const response = await fetch('https://niccage.herokuapp.com/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(loginData),
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Login failed');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log('Login response: ', data);
-          if (data.user) {
-            localStorage.setItem('user', JSON.stringify(data.user));
-            localStorage.setItem('token', data.token);
-            onLoggedIn(data.user, data.token);
-          } else {
-            throw new Error('User not found');
-          }
-        })
-        .catch((e) => {
-          alert(e.message);
-        });
-  };
+
+      if (!response.ok) {
+        throw new Error('Login failed')
+      }
+
+      const responseData = await response.json()
+
+      console.log('Login response: ', responseData)
+      if (responseData.user) {
+        localStorage.setItem('user', JSON.stringify(responseData.user))
+        localStorage.setItem('token', responseData.token)
+        onLoggedIn(responseData.user, responseData.token)
+      } else {
+        throw new Error('User not found')
+      }
+    } catch (e) {
+      alert(e.message)
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
         Username:
         <input
-          type='text'
+          type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -54,13 +54,13 @@ export const LoginView = ({ onLoggedIn }) => {
       <label>
         Password:
         <input
-          type='password'
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
       </label>
-      <button type='submit'>Submit</button>
+      <button type="submit">Submit</button>
     </form>
-  );
-};
+  )
+}
