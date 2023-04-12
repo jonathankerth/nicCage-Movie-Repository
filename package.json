@@ -29,6 +29,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jonathankerth/niccage-client.git"
-  },
-  "proxy": "http://localhost:5000"
+  }
 }
