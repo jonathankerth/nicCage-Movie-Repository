@@ -9,6 +9,7 @@
   "author": "Jonathan Kerth",
   "license": "ISC",
   "dependencies": {
+    "acorn-globals": "^7.0.1",
     "cors": "^2.8.5",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -17,10 +18,11 @@
   "devDependencies": {
     "@parcel/transformer-sass": "^2.8.3",
     "parcel": "^2.8.3",
-    "process": "^0.11.10"
+    "process": "^0.11.10",
+    "react-scripts": "^5.0.1"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.15.0"
   },
   "repository": {
     "type": "git",
