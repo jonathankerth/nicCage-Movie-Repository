@@ -9,8 +9,8 @@ export const LoginView = ({ onLoggedIn }) => {
     event.preventDefault()
 
     const loginData = {
-      username: username,
-      password: password,
+      Username: username,
+      Password: password,
     }
 
     try {

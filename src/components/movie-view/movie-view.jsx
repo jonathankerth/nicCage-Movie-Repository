@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types'
 
 export const MovieView = ({ movie, onBackClick }) => {
-  const { Title, Director, Genre, ImagePath } = movie
+  const { title, director, genre, ImagePath } = movie
   return (
     <div>
-      <img src={ImagePath} alt={Title} />
+      <img src={ImagePath} alt={title} />
       <div>
         <span>Title: </span>
-        <span>{Title}</span>
+        <span>{title}</span>
       </div>
       <div>
         <span>Director: </span>
-        <span>{Director.Name}</span>
+        <span>{director.name}</span>
       </div>
       <div>
         <span>Genre: </span>
-        <span>{Genre.Name}</span>
+        <span>{genre.name}</span>
       </div>
       <button onClick={onBackClick}>Back</button>
     </div>
