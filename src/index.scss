@@ -1,3 +1,12 @@
+// Import Bootstrap variables
+@import '~bootstrap/scss/variables';
+
+// Import Bootstrap styles
+@import '~bootstrap/scss/bootstrap';
+
+// Import React Bootstrap styles
+@import '~react-bootstrap/scss/bootstrap';
+
 $color: steelblue;
 
 .my-flix {
