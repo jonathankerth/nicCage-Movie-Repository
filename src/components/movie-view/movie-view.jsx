@@ -28,13 +28,15 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
   }, [movieId, user])
 
   const addFavorite = () => {
-    fetch(
-      `https://myflixapi-11d1.onrender.com/users/${user.username}/movies/${movieId}`,
-      {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    )
+    if (!user || !user.username) {
+      alert('Please log in to add movies to your favorites.')
+      return
+    }
+
+    fetch(`/users/${user.username}/movies/${movieId}`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((response) => {
         if (response.ok) {
           return response.json()
@@ -56,8 +58,13 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
   }
 
   const removeFavorite = () => {
+    if (!user || !user.username) {
+      alert('Please log in to remove movies from your favorites.')
+      return
+    }
+
     fetch(
-      `https://myflixapi-11d1.onrender.com/users/${user.username}/movies/${movieId}`,
+      `https://niccage.herokuapp.com/users/${user.username}/movies/${movieId}`,
       {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },

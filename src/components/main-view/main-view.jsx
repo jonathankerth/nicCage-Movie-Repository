@@ -11,11 +11,17 @@ import { MovieView } from '../movie-view/movie-view'
 import { LoginView } from '../login-view/login-view'
 import { SignupView } from '../signup-view/signup-view'
 import { NavigationBar } from '../navigation-bar/navigation-bar'
+import { ProfileView } from '../profile-view/profile-view'
+import { FavMovies } from '../profile-view/fav-movies'
+import { UpdateForm } from '../profile-view/update-form'
 import { Row, Col } from 'react-bootstrap'
 
 export const MainView = () => {
+  const storedUser = JSON.parse(localStorage.getItem('user'))
+  const storedToken = localStorage.getItem('token')
   const [movies, setMovies] = useState([])
   const [user, setUser] = useState(null)
+  const [token, setToken] = useState(storedToken ? storedToken : null)
 
   useEffect(() => {
     fetch('https://niccage.herokuapp.com/movies')
@@ -82,12 +88,27 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <Col md={8}>
-                    {/* Move the useParams Hook here */}
                     <MovieView
                       movies={movies}
-                      movieId={useParams().movieId}
                       user={user}
+                      token={user.token}
+                      updateUser={setUser}
                     />
+                  </Col>
+                )}
+              </>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <Col>
+                    <ProfileView user={user} movies={movies} />
                   </Col>
                 )}
               </>
