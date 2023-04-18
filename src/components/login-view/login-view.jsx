@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState('')
@@ -42,26 +43,32 @@ export const LoginView = ({ onLoggedIn }) => {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormGroup>
-        <Form.Label>Username:</Form.Label>
-        <FormControl
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-      </FormGroup>
-      <FormGroup>
-        <Form.Label>Password:</Form.Label>
-        <FormControl
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </FormGroup>
-      <Button type="submit">Submit</Button>
-    </Form>
+    <Container>
+      <Row className="justify-content-center">
+        <Col xs={12} sm={10} md={8} lg={6} xl={4}>
+          <Form onSubmit={handleSubmit}>
+            <FormGroup>
+              <Form.Label>Username:</Form.Label>
+              <FormControl
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </FormGroup>
+            <FormGroup>
+              <Form.Label>Password:</Form.Label>
+              <FormControl
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </FormGroup>
+            <Button type="submit">Submit</Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   )
 }

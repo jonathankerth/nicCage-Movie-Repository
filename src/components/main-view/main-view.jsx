@@ -3,6 +3,7 @@ import { MovieCard } from '../movie-card/movie-card'
 import { MovieView } from '../movie-view/movie-view'
 import { LoginView } from '../login-view/login-view'
 import { SignupView } from '../signup-view/signup-view'
+import { Container, Row, Col } from 'react-bootstrap'
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem('user'))
@@ -65,15 +66,19 @@ export const MainView = () => {
   }
 
   return (
-    <div>
-      <button onClick={handleLogout}>Logout</button>
-      {movies.map((movie) => (
-        <MovieCard
-          key={movie._id}
-          movie={movie}
-          onMovieClick={handleMovieClick}
-        />
-      ))}
-    </div>
+    <Container>
+      <Row>
+        <Col>
+          <button onClick={handleLogout}>Logout</button>
+        </Col>
+      </Row>
+      <Row>
+        {movies.map((movie) => (
+          <Col xs={12} md={4} key={movie._id}>
+            <MovieCard movie={movie} onMovieClick={handleMovieClick} />
+          </Col>
+        ))}
+      </Row>
+    </Container>
   )
 }

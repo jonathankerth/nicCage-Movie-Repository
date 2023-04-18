@@ -1,4 +1,13 @@
 import React, { useState } from 'react'
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  FormControl,
+  Button,
+} from 'react-bootstrap'
 
 export const SignupView = () => {
   const [username, setUsername] = useState('')
@@ -49,51 +58,57 @@ export const SignupView = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="signup-form">
-      <label className="username-label">
-        User:
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          minLength="5"
-          className="username-input"
-        />
-      </label>
-      <label className="password-label">
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="password-input"
-        />
-      </label>
-      <label className="email-label">
-        Email:
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="email-input"
-        />
-      </label>
-      <label className="birthday-label">
-        Birthday:
-        <input
-          type="date"
-          value={birthday}
-          onChange={(e) => setBirthday(e.target.value)}
-          required
-          className="birthday-input"
-        />
-      </label>
-      <button type="submit" className="submit-button">
-        Submit
-      </button>
-    </form>
+    <Container>
+      <Row className="justify-content-center">
+        <Col xs={12} sm={10} md={8} lg={6} xl={4}>
+          <Form onSubmit={handleSubmit} className="signup-form">
+            <FormGroup>
+              <Form.Label>User:</Form.Label>
+              <FormControl
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                minLength="5"
+                className="username-input"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Form.Label>Password:</Form.Label>
+              <FormControl
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="password-input"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Form.Label>Email:</Form.Label>
+              <FormControl
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="email-input"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Form.Label>Birthday:</Form.Label>
+              <FormControl
+                type="date"
+                value={birthday}
+                onChange={(e) => setBirthday(e.target.value)}
+                required
+                className="birthday-input"
+              />
+            </FormGroup>
+            <Button type="submit" className="submit-button">
+              Submit
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   )
 }
