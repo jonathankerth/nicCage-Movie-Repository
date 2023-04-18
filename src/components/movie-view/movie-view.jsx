@@ -1,32 +1,32 @@
 import PropTypes from 'prop-types'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { useParams } from 'react-router'
 import './movie-view.scss'
 
-export const MovieView = ({ movie, onBackClick }) => {
-  const { title, director, genre, ImagePath } = movie
+export const MovieView = ({ movies }) => {
+  const { movieId } = useParams()
+  const selectedMovie = movies.find((m) => m.id === movieId)
   return (
-    <Container>
-      <Row>
-        <Col xs={12} md={6}>
-          <img src={ImagePath} alt={title} className="img-fluid" />
-        </Col>
-        <Col xs={12} md={6}>
-          <div>
-            <span>Title: </span>
-            <span>{title}</span>
-          </div>
-          <div>
-            <span>Director: </span>
-            <span>{director.name}</span>
-          </div>
-          <div>
-            <span>Genre: </span>
-            <span>{genre.name}</span>
-          </div>
-          <button onClick={onBackClick}>Back</button>
-        </Col>
-      </Row>
-    </Container>
+    <div>
+      <div>
+        <img className="w-100" src={selectedMovie.image} />
+      </div>
+      <div>
+        <span>Title: </span>
+        <span>{selectedMovie.title}</span>
+      </div>
+      <div>
+        <span>Director: </span>
+        <span>{selectedMovie.director}</span>
+      </div>
+      <div>
+        <span>Genre: </span>
+        <span>{selectedMovie.genre}</span>
+      </div>
+      <Link to={`/`}>
+        <button className="back-button">Back</button>
+      </Link>
+    </div>
   )
 }
 
@@ -46,5 +46,4 @@ MovieView.propTypes = {
     ImagePath: PropTypes.string.isRequired,
     Featured: PropTypes.bool,
   }).isRequired,
-  onBackClick: PropTypes.func.isRequired,
 }
