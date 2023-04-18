@@ -113,7 +113,9 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
               Add to favorites
             </Button>
           )}
-          <h3 className="mt-3 mb-3 text-light">Similar movies:</h3>
+          <div style={{ height: '100px' }} />{' '}
+          {/* Adjust the height value as needed */}
+          <h3 className="mt-3 mb-3 text-dark">You may also like:</h3>
         </div>
       </Col>
       {similarMovies.map((movie) => (

@@ -42802,12 +42802,22 @@ const MovieView = ({ movies , user , token , updateUser  })=>{
                             lineNumber: 112,
                             columnNumber: 13
                         }, undefined),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                            className: "mt-3 mb-3 text-light",
-                            children: "Similar movies:"
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            style: {
+                                height: "100px"
+                            }
                         }, void 0, false, {
                             fileName: "src/components/movie-view/movie-view.jsx",
                             lineNumber: 116,
+                            columnNumber: 11
+                        }, undefined),
+                        " ",
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                            className: "mt-3 mb-3 text-dark",
+                            children: "You may also like:"
+                        }, void 0, false, {
+                            fileName: "src/components/movie-view/movie-view.jsx",
+                            lineNumber: 118,
                             columnNumber: 11
                         }, undefined)
                     ]
@@ -42831,12 +42841,12 @@ const MovieView = ({ movies , user , token , updateUser  })=>{
                         movie: movie
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 121,
+                        lineNumber: 123,
                         columnNumber: 11
                     }, undefined)
                 }, movie._id, false, {
                     fileName: "src/components/movie-view/movie-view.jsx",
-                    lineNumber: 120,
+                    lineNumber: 122,
                     columnNumber: 9
                 }, undefined))
         ]
