@@ -1,15 +1,25 @@
-import PropTypes from 'prop-types'
+import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import { useParams } from 'react-router'
 import './movie-view.scss'
 
 export const MovieView = ({ movies }) => {
   const { movieId } = useParams()
-  const selectedMovie = movies.find((m) => m.id === movieId)
+
+  const selectedMovie = movies.find((m) => m._id === movieId)
+
+  // Check if selectedMovie is defined, otherwise return a message
+  if (!selectedMovie) {
+    return <div>Movie not found.</div>
+  }
+
   return (
     <div>
       <div>
-        <img className="w-100" src={selectedMovie.image} />
+        <img
+          className="w-100"
+          src={selectedMovie.ImagePath}
+          alt={selectedMovie.title}
+        />
       </div>
       <div>
         <span>Title: </span>
@@ -17,33 +27,15 @@ export const MovieView = ({ movies }) => {
       </div>
       <div>
         <span>Director: </span>
-        <span>{selectedMovie.director}</span>
+        <span>{selectedMovie.director}</span> {/* Access director directly */}
       </div>
       <div>
         <span>Genre: </span>
-        <span>{selectedMovie.genre}</span>
+        <span>{selectedMovie.genre}</span> {/* Access genre directly */}
       </div>
       <Link to={`/`}>
         <button className="back-button">Back</button>
       </Link>
     </div>
   )
-}
-
-MovieView.propTypes = {
-  movie: PropTypes.shape({
-    Title: PropTypes.string.isRequired,
-    Director: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-      Bio: PropTypes.string,
-      Birth: PropTypes.string,
-      Death: PropTypes.string,
-    }),
-    Genre: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-      Description: PropTypes.string,
-    }),
-    ImagePath: PropTypes.string.isRequired,
-    Featured: PropTypes.bool,
-  }).isRequired,
 }
