@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { Container, Row, Col } from 'react-bootstrap'
+import './movie-view.scss'
 
 export const MovieView = ({ movie, onBackClick }) => {
   const { title, director, genre, ImagePath } = movie
