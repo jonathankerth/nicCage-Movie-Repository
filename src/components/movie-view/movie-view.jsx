@@ -5,33 +5,24 @@ import './movie-view.scss'
 export const MovieView = ({ movies }) => {
   const { movieId } = useParams()
 
-  const selectedMovie = movies.find((m) => m._id === movieId)
-
-  // Check if selectedMovie is defined, otherwise return a message
-  if (!selectedMovie) {
-    return <div>Movie not found.</div>
-  }
+  const movie = movies.find((m) => m._id === movieId)
 
   return (
     <div>
       <div>
-        <img
-          className="w-100"
-          src={selectedMovie.ImagePath}
-          alt={selectedMovie.title}
-        />
+        <img className="w-100" src={movie.ImagePath} alt={title} />
       </div>
       <div>
         <span>Title: </span>
-        <span>{selectedMovie.title}</span>
+        <span>{movie.title}</span>
       </div>
       <div>
         <span>Director: </span>
-        <span>{selectedMovie.director}</span> {/* Access director directly */}
+        <span>{movie.director}</span>
       </div>
       <div>
         <span>Genre: </span>
-        <span>{selectedMovie.genre}</span> {/* Access genre directly */}
+        <span>{movie.genre}</span>
       </div>
       <Link to={`/`}>
         <button className="back-button">Back</button>
