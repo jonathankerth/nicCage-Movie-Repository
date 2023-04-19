@@ -20,7 +20,7 @@ export const FavMovies = ({ user, movies }) => {
 
   // Show updated user on the profile
   const getUser = (token) => {
-    fetch(`https://niccage.herokuapp.com/profiles/${user.Username}`, {
+    fetch(`https://niccage.herokuapp.com/users/${user.Username}`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
     })

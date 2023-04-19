@@ -1,7 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import { React } from 'react'
+import { PropTypes } from 'prop-types'
 import { Button, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 // The MovieCard function component
 export const MovieCard = ({ movie }) => {
@@ -17,7 +18,6 @@ export const MovieCard = ({ movie }) => {
     </Card>
   )
 }
-
 MovieCard.propTypes = {
   movie: PropTypes.shape({
     title: PropTypes.string.isRequired,

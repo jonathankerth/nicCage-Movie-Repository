@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import { PropTypes } from 'prop-types'
 import { Button, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router'
@@ -13,80 +13,62 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
   )
 
   const [isFavorite, setIsFavorite] = useState(
-    user && user.favoriteMovies
-      ? user.favoriteMovies.includes(movie._id)
+    user && user.FavoriteMovies
+      ? user.FavoriteMovies.includes(movie._id)
       : false
   )
 
   useEffect(() => {
     setIsFavorite(
       user && user.favoriteMovies
-        ? user.favoriteMovies.includes(movie._id)
+        ? user.FavoriteMovies.includes(movie._id)
         : false
     )
     window.scrollTo(0, 0)
   }, [movieId, user])
 
   const addFavorite = () => {
-    if (!user || !user.username) {
-      alert('Please log in to add movies to your favorites.')
-      return
-    }
-
-    fetch(`/users/${user.username}/movies/${movieId}`, {
+    console.log(user, 'dawg')
+    console.log(user.Username, 'no dawg')
+    console.log(movie._id)
+    fetch(`/users/${user.Username}/movies/${movieId}`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     })
       .then((response) => {
-        if (response.ok) {
-          return response.json()
-        } else {
-          alert('Failed')
-          return false
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
         }
+        return response.json()
       })
-      .then((user) => {
-        if (user) {
-          alert('Successfully added to favorites')
-          setIsFavorite(true)
-          updateUser(user)
-        }
+      .then((updatedUser) => {
+        setUser(updatedUser)
+        setIsFavorite(true)
       })
-      .catch((e) => {
-        alert(e)
+      .catch((error) => {
+        console.error('Error:', error)
       })
   }
 
   const removeFavorite = () => {
-    if (!user || !user.username) {
-      alert('Please log in to remove movies from your favorites.')
-      return
-    }
-
-    fetch(
-      `https://niccage.herokuapp.com/users/${user.username}/movies/${movieId}`,
-      {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    )
-      .then((response) => {
-        if (response.ok) {
-          return response.json()
-        } else {
-          alert('Failed')
-          return false
-        }
+    console.log(user)
+    fetch(`/users/${user.Username}/movies/${movieId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((updatedUser) => {
+        setUser(updatedUser)
+        setIsFavorite(false)
       })
-      .then((user) => {
-        if (user) {
-          alert('Successfully deleted from favorites')
-          setIsFavorite(false)
-          updateUser(user)
-        }
-      })
-      .catch((e) => {
-        alert(e)
+      .catch((error) => {
+        console.error('Error:', error)
       })
   }
 
@@ -116,7 +98,7 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
               Remove from favorites
             </Button>
           ) : (
-            <Button variant="success" className="ms-2" onClick={addFavorite}>
+            <Button variant="primary" className="ms-2" onClick={addFavorite}>
               Add to favorites
             </Button>
           )}

@@ -22,7 +22,7 @@ export const ProfileView = ({ user, movies }) => {
 
   // Show updated user on the profile
   const getUser = (token) => {
-    fetch(`https://movie-api-8cvs.onrender.com/profiles/${user.Username}`, {
+    fetch(`https://niccage.herokuapp.com/users/${user.Username}`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
     })

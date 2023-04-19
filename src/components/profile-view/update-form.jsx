@@ -47,7 +47,7 @@ export const UpdateForm = ({ user }) => {
   }
 
   const handleDeregister = () => {
-    fetch(`https://movie-api-8cvs.onrender.com/users/${user.Username}`, {
+    fetch(`https://niccage.herokuapp.com/users/${user.Username}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
