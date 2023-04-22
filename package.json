@@ -2,7 +2,7 @@
   "name": "niccage-client",
   "version": "1.0.0",
   "description": "A Nic Cage themed React client",
-  "main": "index.js",
+  "main": "dist/index.html",
   "scripts": {
     "start": "parcel src/index.html"
   },
