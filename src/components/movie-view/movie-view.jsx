@@ -5,7 +5,7 @@ import { useParams } from 'react-router'
 import { MovieCard } from '../movie-card/movie-card'
 import { useEffect, useState } from 'react'
 
-export const MovieView = ({ movies, user, token, updateUser }) => {
+export const MovieView = ({ movies, user, setUser, token, updateUser }) => {
   const { movieId } = useParams()
   const movie = movies.find((m) => m._id === movieId)
   const similarMovies = movies.filter(
@@ -54,6 +54,40 @@ export const MovieView = ({ movies, user, token, updateUser }) => {
       .then((updatedUser) => {
         setUser(updatedUser)
         setIsFavorite(true)
+      })
+      .catch((error) => {
+        console.error('Error:', error)
+      })
+  }
+
+  const removeFavorite = () => {
+    if (!user || !user.Username) {
+      console.error('User is not defined or does not have a Username property')
+      return
+    }
+    console.log(user, 'dawg')
+    console.log(user.Username, 'no dawg')
+    console.log(movie._id)
+
+    fetch(
+      `https://niccage.herokuapp.com/users/${user.Username}/movies/${movie._id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        return response.json()
+      })
+      .then((updatedUser) => {
+        setUser(updatedUser)
+        setIsFavorite(false)
       })
       .catch((error) => {
         console.error('Error:', error)
