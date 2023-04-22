@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react'
 import { MovieCard } from '../movie-card/movie-card'
 import { UpdateForm } from './update-form'
 import { FavMovies } from './fav-movies'
-import { Button, Container, Form, Row, Col, Card } from 'react-bootstrap'
+import { MovieView } from '../movie-view/movie-view'
+import PropTypes from 'prop-types'
+import { Button, Container, Form, Row, Col, Card, Link } from 'react-bootstrap'
+import './profile-view.scss'
 
 export const ProfileView = ({ user, movies }) => {
   const storedToken = localStorage.getItem('token')
@@ -66,7 +69,15 @@ export const ProfileView = ({ user, movies }) => {
         </Col>
       </Row>
       <Row>
-        <FavMovies user={user} movies={movies} />
+        <div>
+          <h4>Favorite Movies</h4>
+          {favoriteMovies.map((favoriteMovieId) => {
+            const favoriteMovie = movies.find(
+              (movie) => movie._id === favoriteMovieId
+            )
+            return <MovieCard key={favoriteMovie._id} movie={favoriteMovie} />
+          })}
+        </div>
       </Row>
     </Container>
   )
