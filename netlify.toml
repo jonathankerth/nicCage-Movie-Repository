@@ -6,3 +6,6 @@
   from = "/*"
   to = "/"
   status = 200
+
+[context.production]
+  command = "CI=true npm run build"
