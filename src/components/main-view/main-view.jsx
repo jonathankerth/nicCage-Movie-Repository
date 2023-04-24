@@ -42,6 +42,7 @@ export const MainView = () => {
   const filteredMovies = movies.filter((movie) =>
     movie.title.toLowerCase().includes(filter.toLowerCase())
   )
+
   return (
     <BrowserRouter>
       <NavigationBar
@@ -53,14 +54,6 @@ export const MainView = () => {
         }}
       />
       <Row className="justify-content-md-center">
-        {!user ? null : (
-          <input
-            type="text"
-            value={filter}
-            onChange={(e) => dispatch(setFilter(e.target.value))}
-            placeholder="Filter movies by title..."
-          />
-        )}
         <Routes>
           <Route
             path="/signup"
@@ -134,6 +127,14 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
+                    {user && (
+                      <input
+                        type="text"
+                        value={filter}
+                        onChange={(e) => dispatch(setFilter(e.target.value))}
+                        placeholder="Filter movies by title..."
+                      />
+                    )}
                     {filteredMovies.map((movie) => (
                       <Col className="mb-4" key={movie._id} md={3}>
                         <MovieCard movie={movie} />
