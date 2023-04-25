@@ -8,7 +8,11 @@ import { NavigationBar } from '../navigation-bar/navigation-bar'
 import { ProfileView } from '../profile-view/profile-view'
 import { Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
-import { setMovies, setFilter } from '../../store/movieSlice.jsx'
+import {
+  setMovies,
+  setFilter,
+  removeFavoriteMovie,
+} from '../../store/movieSlice.jsx'
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem('user'))
@@ -42,6 +46,14 @@ export const MainView = () => {
   const filteredMovies = movies.filter((movie) =>
     movie.title.toLowerCase().includes(filter.toLowerCase())
   )
+
+  const handleRemoveFavorite = (movieId) => {
+    dispatch(removeFavoriteMovie({ userId: user._id, movieId }))
+    setUser({
+      ...user,
+      FavoriteMovies: user.FavoriteMovies.filter((id) => id !== movieId),
+    })
+  }
 
   return (
     <BrowserRouter>
@@ -96,7 +108,8 @@ export const MainView = () => {
                     <MovieView
                       movies={movies}
                       user={user}
-                      favoriteMovies={user.FavoriteMovies}
+                      setUser={setUser}
+                      token={token}
                     />
                   </Col>
                 )}
@@ -136,8 +149,11 @@ export const MainView = () => {
                       />
                     )}
                     {filteredMovies.map((movie) => (
-                      <Col className="mb-4" key={movie._id} md={3}>
-                        <MovieCard movie={movie} />
+                      <Col className="mainview-cards" key={movie._id} md={3}>
+                        <MovieCard
+                          movie={movie}
+                          onRemoveFavorite={handleRemoveFavorite}
+                        />
                       </Col>
                     ))}
                   </>

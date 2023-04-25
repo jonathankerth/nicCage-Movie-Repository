@@ -69,15 +69,18 @@ export const ProfileView = ({ user, movies }) => {
         </Col>
       </Row>
       <Row>
-        <div>
-          <h4>Favorite Movies</h4>
-          {favoriteMovies.map((favoriteMovieId) => {
-            const favoriteMovie = movies.find(
-              (movie) => movie._id === favoriteMovieId
-            )
-            return <MovieCard key={favoriteMovie._id} movie={favoriteMovie} />
-          })}
-        </div>
+        <h4>Favorite Movies</h4>
+
+        {favoriteMovies.map((favoriteMovieId) => {
+          const favoriteMovie = movies.find(
+            (movie) => movie._id === favoriteMovieId
+          )
+          return (
+            <Col className="mb-4" key={favoriteMovie._id} md={3}>
+              <MovieCard movie={favoriteMovie} />
+            </Col>
+          )
+        })}
       </Row>
     </Container>
   )
