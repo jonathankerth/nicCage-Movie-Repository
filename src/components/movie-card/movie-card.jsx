@@ -2,17 +2,10 @@ import { React } from 'react'
 import { PropTypes } from 'prop-types'
 import { Button, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
 import './movie-card.scss'
 import './movie-list.scss'
 
-// The MovieCard function component
-export const MovieCard = ({ movie, user, onRemoveFavorite }) => {
-  const handleRemoveFavorite = (event) => {
-    event.preventDefault()
-    onRemoveFavorite(movie._id)
-  }
-
+export const MovieCard = ({ movie }) => {
   return (
     <div className="movie-list">
       <Card className="movie-card">
@@ -28,11 +21,6 @@ export const MovieCard = ({ movie, user, onRemoveFavorite }) => {
               Open
             </Button>
           </Link>
-          {user && user.FavoriteMovies.includes(movie._id) && (
-            <Button variant="danger" onClick={handleRemoveFavorite}>
-              Remove Favorite
-            </Button>
-          )}
         </Card.Body>
       </Card>
     </div>
@@ -41,13 +29,10 @@ export const MovieCard = ({ movie, user, onRemoveFavorite }) => {
 
 MovieCard.propTypes = {
   movie: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     image: PropTypes.string,
     director: PropTypes.string,
     genre: PropTypes.string.isRequired,
   }).isRequired,
-  user: PropTypes.shape({
-    FavoriteMovies: PropTypes.arrayOf(PropTypes.string),
-  }),
-  onRemoveFavorite: PropTypes.func,
 }

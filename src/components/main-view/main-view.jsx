@@ -19,12 +19,44 @@ export const MainView = () => {
   const storedToken = localStorage.getItem('token')
 
   console.log(storedUser)
-  const [user, setUser] = useState(storedUser ? storedUser : null)
-  console.log(user, 'sup dawg')
-  const [token, setToken] = useState(storedToken ? storedToken : null)
+  const [user, setUser] = useState(null)
+  const [token, setToken] = useState(() => localStorage.getItem('token'))
+
+  const onLoggedIn = (userData, userToken) => {
+    setUser(userData)
+    setToken(userToken)
+  }
 
   const { movies, filter } = useSelector((state) => state.movie)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!token) return
+
+      try {
+        const response = await fetch(
+          `https://niccage.herokuapp.com/users/${storedUser.Username}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+
+        if (response.ok) {
+          const userData = await response.json()
+          setUser(userData)
+        } else {
+          throw new Error('Error fetching user data from server')
+        }
+      } catch (error) {
+        console.error('Error:', error)
+      }
+    }
+
+    fetchUser()
+  }, [token])
 
   useEffect(() => {
     fetch('https://niccage.herokuapp.com/movies')
@@ -89,7 +121,7 @@ export const MainView = () => {
                   <Navigate to="/" />
                 ) : (
                   <Col md={5}>
-                    <LoginView onLoggedIn={(user) => setUser(user)} />
+                    <LoginView onLoggedIn={onLoggedIn} />
                   </Col>
                 )}
               </>
@@ -106,10 +138,10 @@ export const MainView = () => {
                 ) : (
                   <Col md={8}>
                     <MovieView
-                      movies={movies}
-                      user={user}
                       setUser={setUser}
+                      user={user}
                       token={token}
+                      movies={movies}
                     />
                   </Col>
                 )}
@@ -149,9 +181,10 @@ export const MainView = () => {
                       />
                     )}
                     {filteredMovies.map((movie) => (
-                      <Col className="mainview-cards" key={movie._id} md={3}>
+                      <Col className="main" key={movie._id} md={3}>
                         <MovieCard
                           movie={movie}
+                          user={user} // Add this line
                           onRemoveFavorite={handleRemoveFavorite}
                         />
                       </Col>

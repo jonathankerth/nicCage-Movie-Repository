@@ -54,7 +54,10 @@ export const ProfileView = ({ user, movies }) => {
               <div>
                 <h4>User Details</h4>
                 <p>Username: {username}</p>
-                <p>Birthday: {birthday}</p>
+                <p>
+                  Birthday:{' '}
+                  {new Date(user.Birthday).toLocaleDateString('en-US')}
+                </p>
                 <p>Email: {email}</p>
               </div>
             </Card.Body>
@@ -75,6 +78,7 @@ export const ProfileView = ({ user, movies }) => {
           const favoriteMovie = movies.find(
             (movie) => movie._id === favoriteMovieId
           )
+
           return (
             <Col className="mb-4" key={favoriteMovie._id} md={3}>
               <MovieCard movie={favoriteMovie} />
