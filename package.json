@@ -47,9 +47,16 @@
     "url": "https://github.com/jonathankerth/niccage-client.git"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "parcel": {
+    "targets": {
+      "index.html": {
+        "distDir": "build"
+      }
+    }
   }
 }
