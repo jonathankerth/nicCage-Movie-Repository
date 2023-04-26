@@ -1,6 +1,6 @@
 [build]
-  command = "npm run build"
-  publish = "build/"
+  command = "parcel src/index.html"
+  publish = "dist/"
 
 [[redirects]]
   from = "/*"
@@ -8,4 +8,4 @@
   status = 200
 
 [context.production]
-  command = "CI=true npm run build"
+  command = "CI=true parcel src/index.html"
