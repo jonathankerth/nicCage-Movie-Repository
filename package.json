@@ -55,7 +55,7 @@
   "parcel": {
     "targets": {
       "index.html": {
-        "distDir": "public"
+        "distDir": "build"
       }
     }
   }
