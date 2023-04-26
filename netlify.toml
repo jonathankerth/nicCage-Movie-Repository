@@ -1,0 +1,11 @@
+[build]
+  command = "npm run build"
+  publish = "build/"
+
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
+
+[context.production]
+  command = "CI=true npm run build"

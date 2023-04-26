@@ -1,19 +1,55 @@
 {
   "name": "niccage-client",
   "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "A Nic Cage themed React client",
+  "author": "Jonathan Kerth",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
-  "author": "",
   "license": "ISC",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "bootstrap": "^5.2.3",
+    "cors": "^2.8.5",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.3",
     "react-dom": "^18.2.0",
-    "prop-types": "^15.8.1"
+    "react-icons": "^4.8.0",
+    "react-redux": "^8.0.5",
+    "react-router": "6.3.0",
+    "react-router-dom": "6.3.0",
+    "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2",
+    "sass": "^1.62.0"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.8.3",
-    "process": "^0.11.10"
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "parcel": "^2.8.3",
+    "process": "^0.11.10",
+    "react-scripts": "^5.0.1"
+  },
+  "engines": {
+    "node": ">=18.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonathankerth/niccage-client.git"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   }
 }
