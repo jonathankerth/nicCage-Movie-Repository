@@ -12,90 +12,141 @@ export const MovieView = ({ movies, user, setUser, token, updateUser }) => {
     (m) => m.genre === movie.genre && m._id !== movie._id
   )
 
-  const [isFavorite, setIsFavorite] = useState(
-    user && user.FavoriteMovies
-      ? user.FavoriteMovies.includes(movie._id)
-      : false
-  )
+  useEffect(() => {
+    console.log('MovieView user:', user)
+  }, [user])
+
+  const [isFavorite, setIsFavorite] = useState(false)
 
   useEffect(() => {
-    setIsFavorite(
-      user && user.favoriteMovies
-        ? user.FavoriteMovies.includes(movie._id)
-        : false
-    )
-    window.scrollTo(0, 0)
-  }, [movieId, user])
+    const checkIsFavorite = () => {
+      if (user && user.FavoriteMovies) {
+        return user.FavoriteMovies.some(
+          (favMovieId) => favMovieId === movie._id
+        )
+      } else {
+        return false
+      }
+    }
 
-  const addFavorite = () => {
+    const isFav = checkIsFavorite()
+    setIsFavorite(isFav)
+    console.log('Is movie favorite:', isFav)
+    console.log(user)
+  }, [user, movie._id, user?.FavoriteMovies]) // Add user?.FavoriteMovies to the dependencies
+
+  const addFavorite = async () => {
     if (!user || !user.Username) {
       console.error('User is not defined or does not have a Username property')
       return
     }
-    console.log(user, 'dawg')
-    console.log(user.Username, 'no dawg')
-    console.log(movie._id)
-    fetch(
-      `https://niccage.herokuapp.com/users/${user.Username}/movies/${movie._id}`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok')
+
+    if (user.FavoriteMovies.includes(movie._id)) {
+      return
+    }
+    console.log(user.FavoriteMovies)
+    try {
+      const response = await fetch(
+        `https://niccage.herokuapp.com/users/${user.Username}/movies/${movie._id}`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         }
-        return response.json()
-      })
-      .then((updatedUser) => {
+      )
+      if (response.ok) {
+        const updatedUser = await response.json()
+        updatedUser.FavoriteMovies = [...updatedUser.FavoriteMovies, movie._id] // Add the movie to the FavoriteMovies array
         setUser(updatedUser)
-        setIsFavorite(true)
-      })
-      .catch((error) => {
-        console.error('Error:', error)
-      })
+        console.log('Movie added to favorites')
+
+        // Fetch the user data again
+        const userDataResponse = await fetch(
+          `https://niccage.herokuapp.com/users/${user.Username}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+
+        if (userDataResponse.ok) {
+          const freshUserData = await userDataResponse.json()
+          setUser(freshUserData)
+        }
+      } else if (response.status === 400) {
+        throw new Error(`${movie._id} is already in your favorites`)
+      } else {
+        throw new Error('Network response was not ok')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      alert(error.message)
+    }
   }
 
-  const removeFavorite = () => {
+  const removeFavorite = async () => {
     if (!user || !user.Username) {
       console.error('User is not defined or does not have a Username property')
       return
     }
-    console.log(user, 'dawg')
-    console.log(user.Username, 'no dawg')
-    console.log(movie._id)
 
-    fetch(
-      `https://niccage.herokuapp.com/users/${user.Username}/movies/${movie._id}`,
-      {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      }
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok')
+    try {
+      const response = await fetch(
+        `https://niccage.herokuapp.com/users/${user.Username}/movies/${movie._id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
         }
-        return response.json()
-      })
-      .then((updatedUser) => {
+      )
+
+      if (response.ok) {
+        const updatedUser = await response.json()
         setUser(updatedUser)
         setIsFavorite(false)
-      })
-      .catch((error) => {
-        console.error('Error:', error)
-      })
+        console.log('Movie removed from favorites')
+
+        // Fetch the user data again
+        const userDataResponse = await fetch(
+          `https://niccage.herokuapp.com/users/${user.Username}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+
+        if (userDataResponse.ok) {
+          const freshUserData = await userDataResponse.json()
+          setUser(freshUserData)
+        }
+      } else {
+        throw new Error('Network response was not ok')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
+
+  const handleButtonClick = (type) => {
+    console.log(user.Username, 'you hit the button')
+    console.log(user, user.FavoriteMovies)
+    if (type === 'add') {
+      addFavorite().catch((error) => console.error('Error:', error))
+    } else if (type === 'remove') {
+      removeFavorite().catch((error) => console.error('Error:', error))
+    }
   }
 
   return (
-    <>
+    <div className="movie-view">
       <Col md={12}>
         <div className="text-dark">
           <img
@@ -113,28 +164,42 @@ export const MovieView = ({ movies, user, setUser, token, updateUser }) => {
           <h4>Genre: {movie.genre}</h4>
           <h4>Director: {movie.director}</h4>
           <Link to={'/'}>
-            <Button variant="primary">Back</Button>
+            <Button variant="warning">Back</Button>
           </Link>
-          {isFavorite ? (
-            <Button variant="danger" className="ms-2" onClick={removeFavorite}>
-              Remove from favorites
-            </Button>
-          ) : (
-            <Button variant="primary" className="ms-2" onClick={addFavorite}>
-              Add to favorites
-            </Button>
-          )}
-          <div style={{ height: '100px' }} />{' '}
-          {/* Adjust the height value as needed */}
+
+          <Col md={3}>
+            {isFavorite ? (
+              <Button
+                variant="danger"
+                size="sm"
+                onClick={() => handleButtonClick('remove')}
+              >
+                Remove from Favorites
+              </Button>
+            ) : (
+              <Button
+                variant="info"
+                size="sm"
+                onClick={() => handleButtonClick('add')}
+              >
+                Add to Favorites
+              </Button>
+            )}
+          </Col>
+
           <h3 className="mt-3 mb-3 text-dark">You may also like:</h3>
         </div>
       </Col>
       {similarMovies.map((movie) => (
         <Col className="mb-4" key={movie._id} xl={2} lg={3} md={4} xs={6}>
-          <MovieCard movie={movie} />
+          <MovieCard
+            movie={movie}
+            user={user}
+            onRemoveFavorite={removeFavorite}
+          />
         </Col>
       ))}
-    </>
+    </div>
   )
 }
 

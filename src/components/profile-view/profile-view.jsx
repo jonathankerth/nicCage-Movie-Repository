@@ -52,9 +52,12 @@ export const ProfileView = ({ user, movies }) => {
           <Card>
             <Card.Body>
               <div>
-                <h4>User Details</h4>
+                <h4>Your Info</h4>
                 <p>Username: {username}</p>
-                <p>Birthday: {birthday}</p>
+                <p>
+                  Birthday:{' '}
+                  {new Date(user.Birthday).toLocaleDateString('en-US')}
+                </p>
                 <p>Email: {email}</p>
               </div>
             </Card.Body>
@@ -68,17 +71,26 @@ export const ProfileView = ({ user, movies }) => {
           </Card>
         </Col>
       </Row>
-      <Row>
-        <div>
+      {favoriteMovies.length > 0 ? (
+        <Row>
           <h4>Favorite Movies</h4>
           {favoriteMovies.map((favoriteMovieId) => {
             const favoriteMovie = movies.find(
               (movie) => movie._id === favoriteMovieId
             )
-            return <MovieCard key={favoriteMovie._id} movie={favoriteMovie} />
+            if (favoriteMovie) {
+              return (
+                <Col className="mb-4" key={favoriteMovie._id} md={3}>
+                  <MovieCard movie={favoriteMovie} />
+                </Col>
+              )
+            }
+            return null
           })}
-        </div>
-      </Row>
+        </Row>
+      ) : (
+        <p>You have not added any favorite movies yet.</p>
+      )}
     </Container>
   )
 }

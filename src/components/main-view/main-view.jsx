@@ -7,15 +7,56 @@ import { SignupView } from '../signup-view/signup-view'
 import { NavigationBar } from '../navigation-bar/navigation-bar'
 import { ProfileView } from '../profile-view/profile-view'
 import { Row, Col } from 'react-bootstrap'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  setMovies,
+  setFilter,
+  removeFavoriteMovie,
+} from '../../store/movieSlice.jsx'
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem('user'))
-  console.log(storedUser)
   const storedToken = localStorage.getItem('token')
-  const [movies, setMovies] = useState([])
-  const [user, setUser] = useState(storedUser ? storedUser : null)
-  console.log(user, 'sup dawg')
-  const [token, setToken] = useState(storedToken ? storedToken : null)
+
+  console.log(storedUser)
+  const [user, setUser] = useState(null)
+  const [token, setToken] = useState(() => localStorage.getItem('token'))
+
+  const onLoggedIn = (userData, userToken) => {
+    setUser(userData)
+    setToken(userToken)
+  }
+
+  const { movies, filter } = useSelector((state) => state.movie)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!token) return
+
+      try {
+        const response = await fetch(
+          `https://niccage.herokuapp.com/users/${storedUser.Username}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+
+        if (response.ok) {
+          const userData = await response.json()
+          setUser(userData)
+        } else {
+          throw new Error('Error fetching user data from server')
+        }
+      } catch (error) {
+        console.error('Error:', error)
+      }
+    }
+
+    fetchUser()
+  }, [token])
 
   useEffect(() => {
     fetch('https://niccage.herokuapp.com/movies')
@@ -30,9 +71,21 @@ export const MainView = () => {
             genre: movie.genre?.name,
           }
         })
-        setMovies(moviesFromApi)
+        dispatch(setMovies(moviesFromApi))
       })
-  }, [])
+  }, [dispatch])
+
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(filter.toLowerCase())
+  )
+
+  const handleRemoveFavorite = (movieId) => {
+    dispatch(removeFavoriteMovie({ userId: user._id, movieId }))
+    setUser({
+      ...user,
+      FavoriteMovies: user.FavoriteMovies.filter((id) => id !== movieId),
+    })
+  }
 
   return (
     <BrowserRouter>
@@ -68,7 +121,7 @@ export const MainView = () => {
                   <Navigate to="/" />
                 ) : (
                   <Col md={5}>
-                    <LoginView onLoggedIn={(user) => setUser(user)} />
+                    <LoginView onLoggedIn={onLoggedIn} />
                   </Col>
                 )}
               </>
@@ -85,9 +138,10 @@ export const MainView = () => {
                 ) : (
                   <Col md={8}>
                     <MovieView
-                      movies={movies}
+                      setUser={setUser}
                       user={user}
-                      favoriteMovies={user.FavoriteMovies}
+                      token={token}
+                      movies={movies}
                     />
                   </Col>
                 )}
@@ -118,9 +172,21 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
-                      <Col className="mb-4" key={movie._id} md={3}>
-                        <MovieCard movie={movie} />
+                    {user && (
+                      <input
+                        type="text"
+                        value={filter}
+                        onChange={(e) => dispatch(setFilter(e.target.value))}
+                        placeholder="Filter movies by title..."
+                      />
+                    )}
+                    {filteredMovies.map((movie) => (
+                      <Col className="main" key={movie._id} md={3}>
+                        <MovieCard
+                          movie={movie}
+                          user={user} // Add this line
+                          onRemoveFavorite={handleRemoveFavorite}
+                        />
                       </Col>
                     ))}
                   </>

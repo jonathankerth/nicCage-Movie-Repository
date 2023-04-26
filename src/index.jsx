@@ -1,14 +1,15 @@
-import React from 'react' // Import React
+import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { MainView } from './components/main-view/main-view'
-import { Container } from 'react-bootstrap' // Import the Container component
+import { Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.scss'
+import { Provider } from 'react-redux'
+import store from './store'
 
 const App = () => {
   return (
     <Container>
-      {/* Wrap the MainView component with the Container component */}
       <MainView />
     </Container>
   )
@@ -16,4 +17,8 @@ const App = () => {
 
 const container = document.querySelector('#root')
 const root = createRoot(container)
-root.render(<App />)
+root.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+)
