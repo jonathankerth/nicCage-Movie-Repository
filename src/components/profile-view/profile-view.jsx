@@ -31,7 +31,6 @@ export const ProfileView = ({ user, movies }) => {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log('getUser response', response)
         setUsername(response.Username)
         setEmail(response.Email)
         setPassword(response.Password)
@@ -39,7 +38,6 @@ export const ProfileView = ({ user, movies }) => {
         setFavoriteMovies(response.FavoriteMovies)
       })
   }
-  console.log('userFavMov', favoriteMovies)
 
   useEffect(() => {
     getUser(token)

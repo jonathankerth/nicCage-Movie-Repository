@@ -17,8 +17,6 @@ import {
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem('user'))
   const storedToken = localStorage.getItem('token')
-
-  console.log(storedUser)
   const [user, setUser] = useState(null)
   const [token, setToken] = useState(() => localStorage.getItem('token'))
 

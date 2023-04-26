@@ -12,9 +12,7 @@ export const MovieView = ({ movies, user, setUser, token, updateUser }) => {
     (m) => m.genre === movie.genre && m._id !== movie._id
   )
 
-  useEffect(() => {
-    console.log('MovieView user:', user)
-  }, [user])
+  useEffect(() => {}, [user])
 
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -31,8 +29,6 @@ export const MovieView = ({ movies, user, setUser, token, updateUser }) => {
 
     const isFav = checkIsFavorite()
     setIsFavorite(isFav)
-    console.log('Is movie favorite:', isFav)
-    console.log(user)
   }, [user, movie._id, user?.FavoriteMovies]) // Add user?.FavoriteMovies to the dependencies
 
   const addFavorite = async () => {
@@ -44,7 +40,6 @@ export const MovieView = ({ movies, user, setUser, token, updateUser }) => {
     if (user.FavoriteMovies.includes(movie._id)) {
       return
     }
-    console.log(user.FavoriteMovies)
     try {
       const response = await fetch(
         `https://niccage.herokuapp.com/users/${user.Username}/movies/${movie._id}`,
@@ -137,7 +132,6 @@ export const MovieView = ({ movies, user, setUser, token, updateUser }) => {
 
   const handleButtonClick = (type) => {
     console.log(user.Username, 'you hit the button')
-    console.log(user, user.FavoriteMovies)
     if (type === 'add') {
       addFavorite().catch((error) => console.error('Error:', error))
     } else if (type === 'remove') {
