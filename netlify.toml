@@ -8,4 +8,4 @@
   status = 200
 
 [context.production]
-  command = "parcel build src/index.html"
+  command = "npm run dist"
