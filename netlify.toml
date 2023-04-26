@@ -8,4 +8,4 @@
   status = 200
 
 [context.production]
-  command = "CI=true parcel src/index.html"
+  command = "parcel build src/index.html"
