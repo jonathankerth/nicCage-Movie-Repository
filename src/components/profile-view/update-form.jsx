@@ -24,7 +24,7 @@ export const UpdateForm = ({ user }) => {
     }
     console.log(data)
     const updateUser = await fetch(
-      `https://movie-api-8cvs.onrender.com/users/${user.Username}`,
+      `https://niccage.herokuapp.com/users/${user.Username}`,
       {
         method: 'PUT',
         body: JSON.stringify(data),

@@ -43743,7 +43743,7 @@ const UpdateForm = ({ user  })=>{
             Birthday: birthday
         };
         console.log(data);
-        const updateUser = await fetch(`https://movie-api-8cvs.onrender.com/users/${user.Username}`, {
+        const updateUser = await fetch(`https://niccage.herokuapp.com/users/${user.Username}`, {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {
