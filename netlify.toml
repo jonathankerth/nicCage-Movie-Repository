@@ -1,5 +1,5 @@
 [build]
-  command = "parcel src/index.html"
+  command = "npm run dist"
   publish = "dist/"
 
 [[redirects]]
