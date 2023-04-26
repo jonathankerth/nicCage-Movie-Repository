@@ -52,7 +52,7 @@ export const ProfileView = ({ user, movies }) => {
           <Card>
             <Card.Body>
               <div>
-                <h4>User Details</h4>
+                <h4>Your Info</h4>
                 <p>Username: {username}</p>
                 <p>
                   Birthday:{' '}
@@ -71,21 +71,26 @@ export const ProfileView = ({ user, movies }) => {
           </Card>
         </Col>
       </Row>
-      <Row>
-        <h4>Favorite Movies</h4>
-
-        {favoriteMovies.map((favoriteMovieId) => {
-          const favoriteMovie = movies.find(
-            (movie) => movie._id === favoriteMovieId
-          )
-
-          return (
-            <Col className="mb-4" key={favoriteMovie._id} md={3}>
-              <MovieCard movie={favoriteMovie} />
-            </Col>
-          )
-        })}
-      </Row>
+      {favoriteMovies.length > 0 ? (
+        <Row>
+          <h4>Favorite Movies</h4>
+          {favoriteMovies.map((favoriteMovieId) => {
+            const favoriteMovie = movies.find(
+              (movie) => movie._id === favoriteMovieId
+            )
+            if (favoriteMovie) {
+              return (
+                <Col className="mb-4" key={favoriteMovie._id} md={3}>
+                  <MovieCard movie={favoriteMovie} />
+                </Col>
+              )
+            }
+            return null
+          })}
+        </Row>
+      ) : (
+        <p>You have not added any favorite movies yet.</p>
+      )}
     </Container>
   )
 }

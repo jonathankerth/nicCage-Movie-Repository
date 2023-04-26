@@ -43574,7 +43574,7 @@ const ProfileView = ({ user , movies  })=>{
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                     children: [
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
-                                            children: "User Details"
+                                            children: "Your Info"
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/profile-view.jsx",
                                             lineNumber: 55,
@@ -43663,18 +43663,18 @@ const ProfileView = ({ user , movies  })=>{
                 lineNumber: 50,
                 columnNumber: 7
             }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+            favoriteMovies.length > 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
                         children: "Favorite Movies"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 75,
-                        columnNumber: 9
+                        lineNumber: 76,
+                        columnNumber: 11
                     }, undefined),
                     favoriteMovies.map((favoriteMovieId)=>{
                         const favoriteMovie = movies.find((movie)=>movie._id === favoriteMovieId);
-                        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                        if (favoriteMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                             className: "mb-4",
                             md: 3,
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -43682,19 +43682,26 @@ const ProfileView = ({ user , movies  })=>{
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
                                 lineNumber: 84,
-                                columnNumber: 15
+                                columnNumber: 19
                             }, undefined)
                         }, favoriteMovie._id, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
                             lineNumber: 83,
-                            columnNumber: 13
+                            columnNumber: 17
                         }, undefined);
+                        return null;
                     })
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 74,
-                columnNumber: 7
+                lineNumber: 75,
+                columnNumber: 9
+            }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: "You have not added any favorite movies yet."
+            }, void 0, false, {
+                fileName: "src/components/profile-view/profile-view.jsx",
+                lineNumber: 92,
+                columnNumber: 9
             }, undefined)
         ]
     }, void 0, true, {
