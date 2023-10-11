@@ -8,6 +8,7 @@ import {
   FormControl,
   Button,
 } from 'react-bootstrap'
+import './signup-view.scss'
 
 export const SignupView = () => {
   const [username, setUsername] = useState('')
@@ -63,7 +64,7 @@ export const SignupView = () => {
         <Col xs={12} sm={10} md={8} lg={6} xl={4}>
           <Form onSubmit={handleSubmit} className="signup-form">
             <FormGroup>
-              <Form.Label>User:</Form.Label>
+              <Form.Label>Username:</Form.Label>
               <FormControl
                 type="text"
                 value={username}
@@ -104,7 +105,7 @@ export const SignupView = () => {
               />
             </FormGroup>
             <Button type="submit" className="submit-button">
-              Submit
+              Signup
             </Button>
           </Form>
         </Col>
