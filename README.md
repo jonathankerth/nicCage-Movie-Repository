@@ -2,6 +2,8 @@
 
 This repository contains a Nicolas Cage themed React client that displays information about Nicolas Cage movies. Users can log in, sign up, view movie details, and manage their profile.
 
+The deployed app can be found at: https://niccagecllient.netlify.app/
+
 ## Table of Contents
 
 - [Installation](#installation)
