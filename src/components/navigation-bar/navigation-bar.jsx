@@ -34,9 +34,11 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
                     Home
                   </Nav.Link>
                 )}
-                <Nav.Link as={Link} to="/profile">
-                  Profile
-                </Nav.Link>
+                {location.pathname !== '/profile' && (
+                  <Nav.Link as={Link} to="/profile">
+                    Profile
+                  </Nav.Link>
+                )}
                 <Nav.Link onClick={onLoggedOut}>Logout</Nav.Link>
               </>
             )}
