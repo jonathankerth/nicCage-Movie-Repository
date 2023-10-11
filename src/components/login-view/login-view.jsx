@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap'
 import { Container, Row, Col } from 'react-bootstrap'
+import './login-view.scss'
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState('')
@@ -42,7 +43,14 @@ export const LoginView = ({ onLoggedIn }) => {
   }
 
   return (
-    <Container>
+    <Container fluid className="login-container">
+      <div className="intro">
+        <h2>Welcome to my Nicolas Cage Movie Repository</h2>
+        <p>
+          Explore the fascinating world of Nicolas Cage movies. Log in to unlock
+          more features.
+        </p>
+      </div>
       <Row className="justify-content-center">
         <Col xs={12} sm={10} md={8} lg={6} xl={4}>
           <Form onSubmit={handleSubmit}>
@@ -64,7 +72,9 @@ export const LoginView = ({ onLoggedIn }) => {
                 required
               />
             </FormGroup>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" className="form-button">
+              Login
+            </Button>
           </Form>
         </Col>
       </Row>

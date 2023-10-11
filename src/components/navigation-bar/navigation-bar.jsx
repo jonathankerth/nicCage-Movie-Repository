@@ -1,8 +1,8 @@
 import { Navbar, Container, Nav } from 'react-bootstrap'
-import { Link, useLocation } from 'react-router-dom' // Added useLocation
+import { Link, useLocation } from 'react-router-dom'
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
-  const location = useLocation() // Get current location
+  const location = useLocation()
 
   return (
     <Navbar bg="light" expand="lg">
@@ -15,17 +15,21 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
           <Nav className="me-auto">
             {!user && (
               <>
-                <Nav.Link as={Link} to="/login">
-                  Login
-                </Nav.Link>
-                <Nav.Link as={Link} to="/signup">
-                  Signup
-                </Nav.Link>
+                {location.pathname !== '/login' && (
+                  <Nav.Link as={Link} to="/login">
+                    Login
+                  </Nav.Link>
+                )}
+                {location.pathname !== '/signup' && (
+                  <Nav.Link as={Link} to="/signup">
+                    Signup
+                  </Nav.Link>
+                )}
               </>
             )}
             {user && (
               <>
-                {location.pathname !== '/' && ( // Conditionally render Home button
+                {location.pathname !== '/' && (
                   <Nav.Link as={Link} to="/">
                     Home
                   </Nav.Link>
