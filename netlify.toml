@@ -1,6 +1,6 @@
 [build]
-  command = "npm run dist"
-  publish = "dist/"
+  command = "npm run build"
+  publish = "build/"
 
 [[redirects]]
   from = "/*"
@@ -8,4 +8,4 @@
   status = 200
 
 [context.production]
-  command = "npm run dist"
+  command = "npm run build"
