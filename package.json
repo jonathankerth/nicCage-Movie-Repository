@@ -35,7 +35,7 @@
   "devDependencies": {
     "@parcel/transformer-sass": "^2.8.3",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "parcel": "^2.8.3",
+    "parcel": "^2.10.0",
     "process": "^0.11.10",
     "react-scripts": "^5.0.1"
   },
@@ -47,7 +47,9 @@
     "url": "https://github.com/jonathankerth/niccage-client.git"
   },
   "scripts": {
-    "dist": "parcel build src/index.html --dist-dir dist"
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "start": "parcel serve src/index.html"
   },
   "parcel": {
     "targets": {
