@@ -6,7 +6,8 @@ import { LoginView } from '../login-view/login-view'
 import { SignupView } from '../signup-view/signup-view'
 import { NavigationBar } from '../navigation-bar/navigation-bar'
 import { ProfileView } from '../profile-view/profile-view'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, InputGroup, FormControl } from 'react-bootstrap'
+
 import { useSelector, useDispatch } from 'react-redux'
 import {
   setMovies,
@@ -171,12 +172,13 @@ export const MainView = () => {
                 ) : (
                   <>
                     {user && (
-                      <input
-                        type="text"
-                        value={filter}
-                        onChange={(e) => dispatch(setFilter(e.target.value))}
-                        placeholder="Filter movies by title..."
-                      />
+                      <InputGroup className="mb-3">
+                        <FormControl
+                          placeholder="Filter movies by title..."
+                          value={filter}
+                          onChange={(e) => dispatch(setFilter(e.target.value))}
+                        />
+                      </InputGroup>
                     )}
                     {filteredMovies.map((movie) => (
                       <Col className="main" key={movie._id} md={3}>

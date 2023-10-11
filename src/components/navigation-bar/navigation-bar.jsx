@@ -1,7 +1,9 @@
 import { Navbar, Container, Nav } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom' // Added useLocation
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
+  const location = useLocation() // Get current location
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -23,9 +25,11 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
             )}
             {user && (
               <>
-                <Nav.Link as={Link} to="/">
-                  Home
-                </Nav.Link>
+                {location.pathname !== '/' && ( // Conditionally render Home button
+                  <Nav.Link as={Link} to="/">
+                    Home
+                  </Nav.Link>
+                )}
                 <Nav.Link as={Link} to="/profile">
                   Profile
                 </Nav.Link>
