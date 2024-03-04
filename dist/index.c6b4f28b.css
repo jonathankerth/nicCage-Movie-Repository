@@ -1,3 +1,25 @@
+.movie-list {
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 2rem;
+  display: flex;
+}
+
+.movie-card {
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+  margin: 1rem 0;
+  display: flex;
+  height: 450px !important;
+}
+
+.movie-poster {
+  object-fit: cover;
+  width: 100%;
+  height: 300px;
+}
+
 .my-button {
   border-radius: .25rem;
   padding: .5rem 1rem;
@@ -15,27 +37,6 @@
   color: #007bff !important;
   background-color: #fff !important;
   border-color: #fff !important;
-}
-
-.movie-card {
-  flex-direction: column;
-  justify-content: space-around;
-  width: 100%;
-  display: flex;
-  height: 450px !important;
-}
-
-.movie-poster {
-  object-fit: cover;
-  width: 100%;
-  height: 300px;
-}
-
-.movie-list {
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 2rem;
-  display: flex;
 }
 
 .form-container {
@@ -12151,4 +12152,4 @@ textarea.form-control-lg {
 
 
 
-/*# sourceMappingURL=index.e3f97e84.css.map */
+/*# sourceMappingURL=index.c6b4f28b.css.map */
