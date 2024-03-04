@@ -184,7 +184,7 @@ export const MainView = () => {
                       <Col className="main" key={movie._id} md={3}>
                         <MovieCard
                           movie={movie}
-                          user={user} // Add this line
+                          user={user}
                           onRemoveFavorite={handleRemoveFavorite}
                         />
                       </Col>

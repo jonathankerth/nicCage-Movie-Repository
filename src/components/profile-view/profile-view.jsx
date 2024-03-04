@@ -23,7 +23,6 @@ export const ProfileView = ({ user, movies }) => {
   const [allMovies] = useState(storedMovies ? storedMovies : movies)
   const [filteredMovies, setFilteredMovies] = useState([])
 
-  // Show updated user on the profile
   const getUser = (token) => {
     fetch(`https://niccage.herokuapp.com/users/${user.Username}`, {
       method: 'GET',

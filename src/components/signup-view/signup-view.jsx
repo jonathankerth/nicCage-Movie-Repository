@@ -41,7 +41,6 @@ export const SignupView = () => {
             console.error('Error data:', errorData)
             console.log('Error messages:', errorData.errors)
 
-            // Combine the error messages into a single string, separated by new lines
             const errorMessage = errorData.errors
               .map((error) => error.message)
               .join('\n')

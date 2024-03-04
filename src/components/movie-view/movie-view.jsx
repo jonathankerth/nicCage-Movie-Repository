@@ -29,7 +29,7 @@ export const MovieView = ({ movies, user, setUser, token, updateUser }) => {
 
     const isFav = checkIsFavorite()
     setIsFavorite(isFav)
-  }, [user, movie._id, user?.FavoriteMovies]) // Add user?.FavoriteMovies to the dependencies
+  }, [user, movie._id, user?.FavoriteMovies])
 
   const addFavorite = async () => {
     if (!user || !user.Username) {
@@ -53,11 +53,10 @@ export const MovieView = ({ movies, user, setUser, token, updateUser }) => {
       )
       if (response.ok) {
         const updatedUser = await response.json()
-        updatedUser.FavoriteMovies = [...updatedUser.FavoriteMovies, movie._id] // Add the movie to the FavoriteMovies array
+        updatedUser.FavoriteMovies = [...updatedUser.FavoriteMovies, movie._id]
         setUser(updatedUser)
         console.log('Movie added to favorites')
 
-        // Fetch the user data again
         const userDataResponse = await fetch(
           `https://niccage.herokuapp.com/users/${user.Username}`,
           {
@@ -107,7 +106,6 @@ export const MovieView = ({ movies, user, setUser, token, updateUser }) => {
         setIsFavorite(false)
         console.log('Movie removed from favorites')
 
-        // Fetch the user data again
         const userDataResponse = await fetch(
           `https://niccage.herokuapp.com/users/${user.Username}`,
           {
@@ -148,8 +146,8 @@ export const MovieView = ({ movies, user, setUser, token, updateUser }) => {
             src={movie.image}
             alt="Movie Cover Image"
             style={{
-              width: '150px', // Adjust the width as needed
-              height: '200px', // Adjust the height as needed
+              width: '150px',
+              height: '200px',
               objectFit: 'cover',
               color: 'black',
             }}

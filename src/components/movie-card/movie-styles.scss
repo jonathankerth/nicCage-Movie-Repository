@@ -6,18 +6,18 @@
 }
 
 .movie-card {
-  width: 100%; // or any desired fixed width
-  height: 450px !important; // or any desired fixed height
-  margin: 1rem 0; // Add margin to create spacing between cards top and bottom
+  width: 100%;
+  height: 450px !important;
+  margin: 1rem 0;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
 
 .movie-poster {
-  width: 100%; // Adjust the width as needed
-  height: 300px; // Adjust the height as needed
-  object-fit: cover; // Ensures the image covers the container without distortion
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
 }
 
 .my-button {
@@ -29,7 +29,7 @@
   border-radius: 0.25rem;
   padding: 0.5rem 1rem;
   transition: all 0.3s ease-in-out;
-  text-decoration: none /* added to remove underline */ !important;
+  text-decoration: none !important;
 
   &:hover {
     color: #007bff !important;

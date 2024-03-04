@@ -18,7 +18,6 @@ export const FavMovies = ({ user, movies }) => {
 
   const [allMovies] = useState(storedMovies ? storedMovies : movies)
 
-  // Show updated user on the profile
   const getUser = (token) => {
     fetch(`https://niccage.herokuapp.com/users/${user.Username}`, {
       method: 'GET',
@@ -36,7 +35,6 @@ export const FavMovies = ({ user, movies }) => {
   }
   console.log('userFavMov', favoriteMovies)
 
-  //Filter favorite movies for later display
   useEffect(() => {
     const newList = allMovies.filter((movie) =>
       favoriteMovies.includes(movie._id)
